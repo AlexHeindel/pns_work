@@ -17,7 +17,6 @@ double fitf(double *x,double *par)
 
 void pns_print()
 {
-	std::cout << "111" << std::endl;
 	std::unique_ptr<TFile> file( TFile::Open("/exp/dune/data/users/psala/vbox/vbox_public/vbox_root_side001_Out.root"));
 
 	int int_array[11] = {208,210,212,214,215,217,219,221,303,306,364};
@@ -43,14 +42,16 @@ void pns_print()
         chain->Add("/exp/dune/data/users/psala/vbox/vbox_public/vbox_root_sidec002_Out.root/HeaderTree");
         fheader = chain;
 
-	std::cout << "222" << std::endl;
 
 	//auto fheader = file->Get<TTree>("HeaderTree");
 	//auto fhits = file->Get<TTree>("HitsTree");
 
-	const Int_t MAXHITS = 400000;
-	const Int_t MAXINEHITS = 400000;
-	const Int_t MXS = 500000;
+	const Int_t MAXHITS = 4000;
+	const Int_t MAXINEHITS = 4000;
+	const Int_t MXS = 5000;
+	//Int_t MAXHITS = 4000;
+	//Int_t MAXINEHITS = 4000;
+	//Int_t MXS = 5000;
         
         // Declaration of leaf types
         Int_t           RunNum;
@@ -253,7 +254,6 @@ void pns_print()
 	//TH1F* timeine306=new TH1F("timeine306","time smear",1200,0.,1200.);
 	//TH1F* timeine364=new TH1F("timeine364","time smear",1200,0.,1200.);
 
-	std::cout << "333" << std::endl;
 
 	/*
         fhits->SetMakeClass(1);
@@ -335,83 +335,86 @@ void pns_print()
         //fhits->SetBranchAddress("PIne", PIne, &b_PIne);
         //fhits->SetBranchAddress("PosIne", PosIne, &b_PosIne);
         //fhits->SetBranchAddress("TimeIne", TimeIne, &b_TimeIne);
-        //fhits->SetBranchAddress("NSecIne", NSecIne, &b_NSecIne);
-        //fhits->SetBranchAddress("FirstSec", FirstSec, &b_FirstSec);
-        fhits->SetBranchAddress("NTIneSec", &NTIneSec, &b_NTIneSec);
-        //fhits->SetBranchAddress("HitSecIne", HitSecIne, &b_HitSecIne);
-        //fhits->SetBranchAddress("IdSecIne", IdSecIne, &b_IdSecIne);
+        fhits->SetBranchAddress("NSecIne", NSecIne, &b_NSecIne);
+        fhits->SetBranchAddress("FirstSec", FirstSec, &b_FirstSec);
+        fhits->SetBranchAddress("NTIneSec", &NTIneSec);//, &b_NTIneSec);
+        fhits->SetBranchAddress("HitSecIne", HitSecIne);//, &b_HitSecIne);
+        fhits->SetBranchAddress("IdSecIne", IdSecIne, &b_IdSecIne);
         //fhits->SetBranchAddress("ASecIne", ASecIne, &b_ASecIne);
         //fhits->SetBranchAddress("ZSecIne", ZSecIne, &b_ZSecIne);
         fhits->SetBranchAddress("TrSecIne", TrSecIne, &b_TrSecIne);
         //fhits->SetBranchAddress("PSec", PSec, &b_PSec);
 		
-	std::cout << "444" << std::endl;
 
-	Long64_t nentries_hit = 10;//fhits->GetEntries();
+	Long64_t nentries_hit = 30;//fhits->GetEntries();
 	for (Long64_t i=0; i<nentries_hit; i++)
         {
 		fhits->GetEntry(i);
-		std::cout << NIneHits << std::endl;	
 		
-		std::cout << "TypeIne" << std::endl;	
-		for(int a=0; a<NIneHits; a++)
+		if (NIneHits != 0)
 		{
-			std::cout << TypeIne[a] << "  ";		
-		}
-		std::cout << std::endl;
-
-		std::cout << "IdIne" << std::endl;
-		for(int b=0; b<NIneHits; b++)
-                {
-                        std::cout << IdIne[b] << "  ";
-                }
-                std::cout << std::endl;
-	
-		std::cout << "TrIne" << std::endl;
-		for(int c=0; c<NIneHits; c++)
-                {
-                        std::cout << TrIne[c] << "  ";
-                }
-                std::cout << "\n" << std::endl;
-
-		/*	
-		std::cout << NTIneSec << std::endl;
-
-                std::cout << "NSecIne" << std::endl;
-                for(int d=0; d<NTIneSec; d++)
-                {
-                        std::cout << NSecIne[d] << "  ";
-                }
-                std::cout << std::endl;
-
-                std::cout << "FirstSec" << std::endl;
-                for(int e=0; e<NTIneSec; e++)
-                {
-                        std::cout << FirstSec[e] << "  ";
-                }
-                std::cout << std::endl;
-
-                std::cout << "HitSecIne" << std::endl;
-                for(int f=0; f<NTIneSec; f++)
-                {
-                        std::cout << HitSecIne[f] << "  ";
-                }
-                std::cout << std::endl;
+			std::cout << NIneHits << std::endl;	
 		
-		std::cout << "IdSecIne" << std::endl;
-                for(int g=0; g<NTIneSec; g++)
-                {
-                        std::cout << IdSecIne[g] << "  ";
-                }
-                std::cout << std::endl;
+			std::cout << "TypeIne" << std::endl;	
+			for(int a=0; a<NIneHits; a++)
+			{
+				std::cout << TypeIne[a] << "  ";		
+			}
+			std::cout << std::endl;
 
-		std::cout << "TrSecIne" << std::endl;
-                for(int h=0; h<NTIneSec; h++)
-                {
-                        std::cout << TrSecIne[h] << "  ";
-                }
-                std::cout << "\n" << std::endl;
-		*/
+			std::cout << "IdIne" << std::endl;
+			for(int b=0; b<NIneHits; b++)
+	                {
+        	                std::cout << IdIne[b] << "  ";
+                	}
+                	std::cout << std::endl;
+
+			std::cout << "TrIne" << std::endl;
+			for(int c=0; c<NIneHits; c++)
+	                {
+        	                std::cout << TrIne[c] << "  ";
+               		}
+      	     		std::cout << "\n";// << std::endl;
+			
+        	        std::cout << "NSecIne" << std::endl;
+        	        for(int d=0; d<NIneHits; d++)
+                	{
+                        	std::cout << NSecIne[d] << "  ";
+	                }
+        	        std::cout << std::endl;
+	
+	                std::cout << "FirstSec" << std::endl;
+       	 	        for(int e=0; e<NIneHits; e++)
+                	{
+                        	std::cout << FirstSec[e] << "  ";
+                	}
+	                std::cout << std::endl;
+	
+
+
+			std::cout << NTIneSec << std::endl;
+	                
+			std::cout << "HitSecIne" << std::endl;
+        	        for(int f=0; f<NTIneSec; f++)
+                	{
+                        	std::cout << HitSecIne[f] << "  ";
+                	}
+       	  	        std::cout << std::endl;
+		
+			std::cout << "IdSecIne" << std::endl;
+                	for(int g=0; g<NTIneSec; g++)
+                	{
+                	        std::cout << IdSecIne[g] << "  ";
+                	}
+                	std::cout << std::endl;
+				
+			std::cout << "TrSecIne" << std::endl;
+                	for(int h=0; h<NTIneSec; h++)
+                	{
+                       		std::cout << TrSecIne[h] << "  ";
+                	}
+                	std::cout << "\n" << std::endl;
+		}
 	}
 	
 	std::cout << "END" << std::endl;	

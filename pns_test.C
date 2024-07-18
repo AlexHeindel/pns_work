@@ -19,8 +19,8 @@ void pns_test()
 {
 	std::unique_ptr<TFile> file( TFile::Open("/exp/dune/data/users/psala/vbox/vbox_public/vbox_root_side001_Out.root"));
 
-	int int_array[11] = {208,210,212,214,215,217,219,221,303,306,364};
-	//int int_array[2] = {303,306};
+	//int int_array[11] = {208,210,212,214,215,217,219,221,303,306,364};
+	int int_array[2] = {303,306};
 	
 	TTree *fheader;
 	TTree *fhits;
@@ -45,9 +45,9 @@ void pns_test()
 	//auto fheader = file->Get<TTree>("HeaderTree");
 	//auto fhits = file->Get<TTree>("HitsTree");
 
-	const Int_t MAXHITS = 400000;
-	const Int_t MAXINEHITS = 400000;
-	const Int_t MXS = 500000;
+	const Int_t MAXHITS = 4000;
+	const Int_t MAXINEHITS = 4000;
+	const Int_t MXS = 5000;
         
         // Declaration of leaf types
         Int_t           RunNum;
@@ -244,23 +244,27 @@ void pns_test()
 	TH1F* tc = new TH1F("tc","convoluted",75000,0.,1200.);
         tc->GetXaxis()->SetRange(1,75000);
 
-	TH1F *harray[11];
-	//TH1F *harray[2];
+	//TH1F *harray[11];
+	TH1F *harray[2];
 	auto hs = new THStack("hs","");
-	/*
+	
 	for(int h = 0; h<2; h++)
 	{
 		TString name = Form("time%d",int_array[h]);
 		harray[h] = new TH1F(name, "time smear", 1200,0.,1200); 	
 	}
-	*/
+	/*
 	for(int h = 0; h<11; h++)
 	{
 		TString name = Form("time%d",int_array[h]);
 		harray[h] = new TH1F(name, "time smear", 1200,0.,1200); 	
 	}
-
+	*/
 	TH1F* timehstack=new TH1F("timehstack","no smear",1200,0.,1200.);
+
+	TH1F* timeine303=new TH1F("timeine303","time smear",1200,0.,1200.);
+	TH1F* timeine306=new TH1F("timeine306","time smear",1200,0.,1000000);
+
 	
 	//TH1F* timeine208=new TH1F("timeine208","time smear",1200,0.,1200.);
 	//TH1F* timeine210=new TH1F("timeine210","time smear",1200,0.,1200.);
@@ -311,7 +315,7 @@ void pns_test()
         fheader->SetBranchAddress("Nsec_Track", Nsec_Track, &b_Nsec_Track);
         fheader->SetBranchAddress("Esec_Track", Esec_Track, &b_Esec_Track);
         fheader->SetBranchAddress("Psec_Track", Psec_Track, &b_Psec_Track);
-        
+        */
         fhits->SetBranchAddress("RunNum", &RunNum, &b_RunNum);
 	fhits->SetBranchAddress("EveNum", &EveNum, &b_EveNum);
         fhits->SetBranchAddress("NIncHits", &NIncHits, &b_NIncHits);
@@ -320,33 +324,32 @@ void pns_test()
         fhits->SetBranchAddress("TrInc", TrInc, &b_TrInc);
         fhits->SetBranchAddress("ParTrInc", ParTrInc, &b_ParTrInc);
         fhits->SetBranchAddress("IntParInc", IntParInc, &b_IntParInc);
-	//fhits->SetBranchAddress("RegInc", RegInc, &b_RegInc);
-	*/
-	//fhits->SetBranchAddress("PosInc", PosInc, &b_PosInc);
-	//fhits->SetBranchAddress("PInc", PInc, &b_PInc);
-	//fhits->SetBranchAddress("TimeInc", TimeInc, &b_TimeInc);
-	//fhits->SetBranchAddress("NCalHits", &NCalHits, &b_NCalHits);
-	//fhits->SetBranchAddress("WhCal", WhCal, &b_WhCal);
-	//fhits->SetBranchAddress("PosCal", PosCal, &b_PosCal);
-	//fhits->SetBranchAddress("EneCal", EneCal, &b_EneCal);
-	//fhits->SetBranchAddress("NCHitNCap", &NCHitNCap, &b_NCHitNCap);
-	//fhits->SetBranchAddress("WhCNCap", WhCNCap, &b_WhCNCap);
-	//fhits->SetBranchAddress("PosCNCap", PosCNCap, &b_PosCNCap);
-	//fhits->SetBranchAddress("EneCNCap", EneCNCap, &b_EneCNCap);
+	fhits->SetBranchAddress("RegInc", RegInc, &b_RegInc);
+	fhits->SetBranchAddress("PosInc", PosInc, &b_PosInc);
+	fhits->SetBranchAddress("PInc", PInc, &b_PInc);
+	fhits->SetBranchAddress("TimeInc", TimeInc, &b_TimeInc);
+	fhits->SetBranchAddress("NCalHits", &NCalHits, &b_NCalHits);
+	fhits->SetBranchAddress("WhCal", WhCal, &b_WhCal);
+	fhits->SetBranchAddress("PosCal", PosCal, &b_PosCal);
+	fhits->SetBranchAddress("EneCal", EneCal, &b_EneCal);
+	fhits->SetBranchAddress("NCHitNCap", &NCHitNCap, &b_NCHitNCap);
+	fhits->SetBranchAddress("WhCNCap", WhCNCap, &b_WhCNCap);
+	fhits->SetBranchAddress("PosCNCap", PosCNCap, &b_PosCNCap);
+	fhits->SetBranchAddress("EneCNCap", EneCNCap, &b_EneCNCap);
 	fhits->SetBranchAddress("NPheHits", &NPheHits, &b_NPheHits);
 	fhits->SetBranchAddress("Phe", Phe, &b_Phe);
 	fhits->SetBranchAddress("PheTile", PheTile, &b_PheTile);
 	fhits->SetBranchAddress("PheTime", PheTime, &b_PheTime); 
 	fhits->SetBranchAddress("TotPhe", TotPhe, &b_TotPhe); 
 	
-	//fhits->SetBranchAddress("NPheHitsNCap", &NPheHitsNCap, &b_NPheHitsNCap);
-        //fhits->SetBranchAddress("PheNCap", PheNCap, &b_PheNCap);
-        //fhits->SetBranchAddress("PheTileNCap", PheTileNCap, &b_PheTileNCap);
-        //fhits->SetBranchAddress("PheTimeNCap", PheTimeNCap, &b_PheTimeNCap);
-        //fhits->SetBranchAddress("TotPheNCap", TotPheNCap, &b_TotPheNCap);
+	fhits->SetBranchAddress("NPheHitsNCap", &NPheHitsNCap, &b_NPheHitsNCap);
+        fhits->SetBranchAddress("PheNCap", PheNCap, &b_PheNCap);
+        fhits->SetBranchAddress("PheTileNCap", PheTileNCap, &b_PheTileNCap);
+        fhits->SetBranchAddress("PheTimeNCap", PheTimeNCap, &b_PheTimeNCap);
+        fhits->SetBranchAddress("TotPheNCap", TotPheNCap, &b_TotPheNCap);
         fhits->SetBranchAddress("NIneHits", &NIneHits, &b_NIneHits);
         fhits->SetBranchAddress("TypeIne", TypeIne, &b_TypeIne);
-        /*
+        
 	fhits->SetBranchAddress("IdIne", IdIne, &b_IdIne);
         fhits->SetBranchAddress("TrIne", TrIne, &b_TrIne);
         fhits->SetBranchAddress("IdParIne", IdParIne, &b_IdParIne);
@@ -363,13 +366,14 @@ void pns_test()
         fhits->SetBranchAddress("ZSecIne", ZSecIne, &b_ZSecIne);
         fhits->SetBranchAddress("TrSecIne", TrSecIne, &b_TrSecIne);
         fhits->SetBranchAddress("PSec", PSec, &b_PSec);
-	*/
 
 	TRandom *myran       = new TRandom();
 	Double_t rr=0.0, rr2=0.0, offset1=0.0, offset2=0.0;
 	Double_t thr1=10.0; //total phe on 1 tile to get above threshold
    	Double_t thr2=14.5*5.; // 5 phe
    	Double_t effi=0.3;
+
+	bool int_contained;
 
 	Double_t response[115];
 	TFile* rfile= TFile::Open("sample.root");
@@ -385,35 +389,41 @@ void pns_test()
 	Long64_t nentries_hit = fhits->GetEntries();
 	for (Long64_t i=0; i<nentries_hit; i++)
         {
-                fhits->GetEntry(i);
+		fhits->GetEntry(i);
 		//std::cout << NIneHits << std::endl;	
-		for(int i_int = 0; i_int < 11; i_int++)
+		for(int i_int = 0; i_int < 2; i_int++)
 		{
+			int_contained = false;
+			
 			for(int k=0; k<NIneHits; k++)
 			{
 				//std::cout << TypeIne[k] << std::endl;
 				if(int_array[i_int] == TypeIne[k])
 				{
 					//std::cout << TypeIne[k]	<< std::endl;
-					if (TotPhe[2]*effi>thr1)
-                			{
-                        			rr2=myran->Rndm();
-                        			rr2=rr2*5;
-                        			rr2=Int_t(rr2)*80.0; //-280.0;
-                        			rr=myran->Rndm();
-                        			//offset2=rr*60.0+rr2;
-                        			offset1=offset2-280.0;
-                        			for (int iph=0; iph<NPheHits; iph++)
-                        			{
-                                			//if (PheTile[iph] == 2 && Phe[iph]>0.5)
-                                			//{
-                                        			//timeh3->Fill(PheTime[iph]/1000.+offset2);
-                                        			// 60 microseconds bunches
-                                                                //timeh1->Fill(PheTime[iph]/1000.);
-                                                        //}
-                                                        harray[i_int]->Fill(PheTime[iph]/1000.+offset1);
-						}	
-					}
+					int_contained = true;
+				}
+			}
+			if (int_contained == true)
+			{
+				if (TotPhe[2]*effi>thr1)
+                		{
+   	                    		//rr2=myran->Rndm();
+                        		//rr2=rr2*5;
+                        		//rr2=Int_t(rr2)*80.0; //-280.0;
+                        		//rr=myran->Rndm();
+                       			//offset2=rr*60.0+rr2;
+                       			//offset1=offset2-280.0;
+                       			for (int iph=0; iph<NPheHits; iph++)
+                       			{
+                               			//if (PheTile[iph] == 2 && Phe[iph]>0.5)
+                            			//{
+                                      		//timeh3->Fill(PheTime[iph]/1000.+offset2);
+                                       		// 60 microseconds bunches
+                                                //timeh1->Fill(PheTime[iph]/1000.);
+                                                //}
+                                                //harray[i_int]->Fill(PheTime[iph]/1000.+offset2);
+					}	
 				}
 			}
 		}
@@ -444,7 +454,44 @@ void pns_test()
 				}
 			}
 		}
-		
+			
+		if (TypeIne[0] == 303)
+		{
+			rr2=myran->Rndm();
+                        rr2=rr2*5;
+                        rr2=Int_t(rr2)*80.0; //-280.0;
+                        rr=myran->Rndm();
+                        offset2=rr*60.0+rr2;
+                        offset1=offset2-280.0;
+			for(int k=0; k<NIneHits; k++)
+			{
+				if (IdIne[k] == 22)
+				{
+					//std::cout << TimeIne[k] << std::endl;
+					timeine303->Fill(TimeIne[k]*1e+9 + offset2);
+				}
+			} 		
+		}
+		if (TypeIne[0] == 306)
+		{
+			rr2=myran->Rndm();
+                        rr2=rr2*5;
+                        rr2=Int_t(rr2)*80.0; //-280.0;
+                        rr=myran->Rndm();
+                        offset2=rr*60.0+rr2;
+                        offset1=offset2-280.0;
+			for(int k=0; k<NIneHits; k++)
+			{
+				if (IdIne[k] == 22)
+				{
+					//std::cout << TimeIne[k] << std::endl;
+					timeine306->Fill(TimeIne[k]*1e+9 + offset1);
+				}
+			} 		
+		}
+	
+
+	
 		//for (Long64_t j=0; j<NPheHits; j++)
 		//{
 		//	timeh1->Fill(PheTime[j]/1000.);
@@ -470,7 +517,7 @@ void pns_test()
 	std::cout << "\ntimeh2 Fit:" << std::endl;
 	timeh2->Fit("fit","R");
 
-	std::cout << "\ntcglob Fit:\n" << std::endl;
+	std::cout << "\ntcglob Fit:" << std::endl;
 	tcglob->Fit("fit","R");
 	
 	//std::cout << "\ntimeine306 Fit:\n" << std::endl;
@@ -478,43 +525,57 @@ void pns_test()
 
 	TCanvas *c1 = new TCanvas();
         timeh1->Draw();
-        c1->SaveAs("timeh1_test.png");
+        c1->SaveAs("images/timeh1_test.png");
 	TCanvas *c2 = new TCanvas();
         timeh2->Draw();
-        c2->SaveAs("timeh2_test.png");
+        c2->SaveAs("images/timeh2_test.png");
 	TCanvas *c3 = new TCanvas();
         timeh3->Draw();
-        c3->SaveAs("timeh3_test.png");
+        c3->SaveAs("images/timeh3_test.png");
 	TCanvas *c4 = new TCanvas();
         tcglob->Draw();
-        c4->SaveAs("tcglob_test.png");
+        c4->SaveAs("images/tcglob_test.png");
 	TCanvas *c5 = new TCanvas();
         tc->Draw();
-        c5->SaveAs("tc_test.png");
+        c5->SaveAs("images/tc_test.png");
 
-	for(int i = 0; i<11; i++)
+	for(int i = 0; i<2; i++)
 	{
 		//TString print_name = Form("timeine%d",int_array[i]);
-		//std::cout << "\n" << print_name<< " Fit:\n" << std::endl;
+		//std::cout << "\n" << print_name<< " Fit:" << std::endl;
         	//harray[i]->Fit("fit","R");
 	
 		hs->Add(harray[i]);
-		timehstack->Add(harray[i]);
+		//timehstack->Add(harray[i]);
 
 		TCanvas *c = new TCanvas();
         	harray[i]->Draw();
-        	TString filename = Form("timeine%d_test.png",int_array[i]);
+        	TString filename = Form("images/timeine%d_test.png",int_array[i]);
 		c->SaveAs(filename);	
 	}
 
-	std::cout << "\ntimehstack Fit:\n" << std::endl;
-	timehstack->Fit("fit","R");
+	//std::cout << "\ntimehstack Fit:" << std::endl;
+	//timehstack->Fit("fit","R");
 	
-	TCanvas *cs = new TCanvas();
+	//TCanvas *cs = new TCanvas();
         //hs->Draw();
-        timehstack->Draw();
-        cs->SaveAs("timeinestack_test.png");
+        //timehstack->Draw();
+        //cs->SaveAs("images/timeinestack_test.png");
+	/*
+	TCanvas *c6 = new TCanvas();
+        timeine303->Draw();
+        c6->SaveAs("images/timeine303_new.png");
+	
+	TCanvas *c7 = new TCanvas();
+        timeine306->Draw();
+        c7->SaveAs("images/timeine306_new.png");
+	*/
+	//timehstack->Add(timeine303);
+	//timehstack->Add(timeine306);
 
+	//TCanvas *c8 = new TCanvas();
+        //timehstack->Draw();
+        //c8->SaveAs("images/timeinestack_new.png");
 }
 
 

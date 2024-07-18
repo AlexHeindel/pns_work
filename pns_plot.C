@@ -249,7 +249,23 @@ void pns_plot()
                 TString name = Form("timetile%d",h);
                 harray[h] = new TH1F(name, "time smear", 1200,0.,1200);
         }
+	
+	TH1F* timeh1NCap=new TH1F("timeh1NCap","no smear",1200,0.,1200.);
+	TH1F* timeh2NCap=new TH1F("timeh2NCap","time smear",1200,0.,1200.);
+ 	TH1F* timeh3NCap=new TH1F("timeh3NCap","time smear all bunches",1200,0.,1200.);
+	TH1F* tallNCap= new TH1F("tallNCap","convoluted",75000,0.,1200.);
+  	TH1F* tcglobNCap= new TH1F("tcglobNCap","convoluted",75000,0.,1200.);
+  	TH1F* tcompactNCap= new TH1F("tcompactNCap","convoluted",1200,0.,1200.);	
+	TH1F* tcNCap = new TH1F("tcNCap","convoluted",75000,0.,1200.);
+        tcNCap->GetXaxis()->SetRange(1,75000);
 
+	TH1F *harrayNCap[4];
+
+        for(int h = 0; h<4; h++)
+        {
+                TString name = Form("timetile%dNCap",h);
+                harrayNCap[h] = new TH1F(name, "time smear", 1200,0.,1200);
+        }
 
 	TH1F* posinex=new TH1F("posinex","position of hit",200,-100.,100.);
 	TH1F* posiney=new TH1F("posiney","position of hit",400,-200.,200.);
@@ -265,17 +281,17 @@ void pns_plot()
 	TH1F* mominey=new TH1F("mominey","y momentum of hit",100,-0.04,0.04);
 	TH1F* mominez=new TH1F("mominez","z momentum of hit",100,-0.04,0.04);
 	TH1F* toteine=new TH1F("toteine","total energy of hit",100,0.,1.);
-	TH1F* kineine=new TH1F("kineine","kinetic energy of incoming particle",100,0.,.1);
+	TH1F* kineine=new TH1F("kineine","kinetic energy of incoming particle",100,0.,.01);
 	TH1F* mominex303=new TH1F("mominex303","x momentum of hit",100,-0.08,0.08);
 	TH1F* mominey303=new TH1F("mominey303","y momentum of hit",100,-0.08,0.08);
 	TH1F* mominez303=new TH1F("mominez303","z momentum of hit",100,-0.08,0.08);
 	TH1F* toteine303=new TH1F("toteine303","total energy of hit",100,0.94,0.944);
 	TH1F* kineine303=new TH1F("kineine303","kinetic energy of incoming particle",100,0.,.0015);
-	TH1F* mominex306=new TH1F("mominex306","x momentum of hit",100,-0.000001,0.000001);
-	TH1F* mominey306=new TH1F("mominey306","y momentum of hit",100,-0.000001,0.000001);
-	TH1F* mominez306=new TH1F("mominez306","z momentum of hit",100,-0.000001,0.000001);
+	TH1F* mominex306=new TH1F("mominex306","x momentum of hit",100,-0.000000001,0.000000001);
+	TH1F* mominey306=new TH1F("mominey306","y momentum of hit",100,-0.000000001,0.000000001);
+	TH1F* mominez306=new TH1F("mominez306","z momentum of hit",100,-0.000000001,0.000000001);
 	TH1F* toteine306=new TH1F("toteine306","total energy of hit",100,0.939,0.941);
-	TH1F* kineine306=new TH1F("kineine306","kinetic energy of incoming particle",100,0.,.000001);
+	TH1F* kineine306=new TH1F("kineine306","kinetic energy of incoming particle",100,0.,.000000001);
 
 	/*
         fhits->SetMakeClass(1);
@@ -374,6 +390,8 @@ void pns_plot()
 
 	int num_303 = 0;
 	int num_306 = 0;
+	int sum_303 = 0;
+	int sum_306 = 0;
 	int total_neut_int = 0;	
 	int multi_sum = 0;
 
@@ -398,9 +416,10 @@ void pns_plot()
 
 		for(int k=0; k<NIneHits; k++)
                 {
-                	if(TypeIne[k] == 303)
+                	if(TypeIne[k] == 303 && IdIne[k] == 2112)
                         {
                         	num_303++;
+                        	sum_303++;
 				posinex303->Fill(PosIne[k][0]);
 				posiney303->Fill(PosIne[k][1]);
 				posinez303->Fill(PosIne[k][2]);
@@ -410,9 +429,14 @@ void pns_plot()
 				toteine303->Fill(PIne[k][3]);
 				kineine303->Fill(PIne[k][4]);
                         }
-                	if(TypeIne[k] == 306)
+                	if(TypeIne[k] == 306 && IdIne[k] == 2112)
                         {
-                        	num_306++;
+				if (PIne[k][4] != 0)
+				{
+        				std::cout << PIne[k][4] << std::endl;
+	                	}
+				num_306++;
+                        	sum_306++;
 				posinex306->Fill(PosIne[k][0]);
 				posiney306->Fill(PosIne[k][1]);
 				posinez306->Fill(PosIne[k][2]);
@@ -448,7 +472,16 @@ void pns_plot()
                                 std::cout << TypeIne[a] << "  ";
                         }
                         std::cout << std::endl;
+			
+			std::cout << "IdIne" << std::endl;
+                        for(int b=0; b<NIneHits; b++)
+                        {
+                                std::cout << IdIne[b] << "  ";
+                        }
+                        std::cout << std::endl;
 			*/
+			sum_303--;
+			sum_306--;
 			multi_sum++;		
 		}
 	
@@ -491,6 +524,37 @@ void pns_plot()
                           		tc->Fill(newtime,cont);
 				}
 			}
+			for (int iphNCap=0; iphNCap<NPheHitsNCap; iphNCap++)
+			{
+                		if (PheTileNCap[iphNCap] == 0 && PheNCap[iphNCap]>0.5)
+				{
+					harrayNCap[0]->Fill(PheTimeNCap[iphNCap]/1000.+offset2);
+				}
+                        	if (PheTileNCap[iphNCap] == 1 && PheNCap[iphNCap]>0.5)
+				{
+					harrayNCap[1]->Fill(PheTimeNCap[iphNCap]/1000.+offset2);
+				}
+                                else if (PheTileNCap[iphNCap] == 2 && PheNCap[iphNCap]>0.5)
+				{
+                        		timeh3NCap->Fill(PheTimeNCap[iphNCap]/1000.+offset2);
+                        		// 60 microseconds bunches
+                        		timeh1NCap->Fill(PheTimeNCap[iphNCap]/1000.);
+					harrayNCap[2]->Fill(PheTimeNCap[iphNCap]/1000.+offset2);
+				}
+         	                else if (PheTileNCap[iphNCap] == 3 && PheNCap[iphNCap]>0.5)
+				{
+					harrayNCap[3]->Fill(PheTimeNCap[iphNCap]/1000.+offset2);
+				}
+	 			timeh2NCap->Fill(PheTimeNCap[iphNCap]/1000.+offset1);
+				for ( int j=0; j<115;  j++)
+				{
+                          		Float_t newtime=PheTimeNCap[iphNCap]+offset1*1000. +j*16.0;
+                          		newtime=newtime/1000.;
+                          		Float_t cont =response[j]*PheNCap[iphNCap]*effi;
+                          		tcglobNCap->Fill(newtime,cont);
+                          		tcNCap->Fill(newtime,cont);
+				}
+			}
 		}
 		
 	}
@@ -509,7 +573,9 @@ void pns_plot()
 
 	std::cout << "Total Neutron Interactions: " << total_neut_int << std::endl;
 
-	std::cout << "Total Inelastic + Neutron Capture Events: " << multi_sum << std::endl; 
+	std::cout << "Total Inelastic Events: " << sum_303 << "  " << (float(sum_303)/total_neut_int) * 100 << " %" << std::endl; 
+	std::cout << "Total Neutron Capture Events: " << sum_306 << "  " << (float(sum_306)/total_neut_int) * 100 << " %"<< std::endl; 
+	std::cout << "Total Inelastic + Neutron Capture Events: " << multi_sum << "  " << (float(multi_sum)/total_neut_int) * 100 << " %"<< std::endl; 
 
 
 
@@ -554,6 +620,38 @@ void pns_plot()
         	TString filename = Form("images/timetile%d_test.png",i);
 		c->SaveAs(filename);	
 	}
+
+	TCanvas *c1NCap = new TCanvas();
+        timeh1NCap->Draw();
+        c1NCap->SaveAs("images/timeh1NCap_test.png");
+	TCanvas *c2NCap = new TCanvas();
+        timeh2NCap->Draw();
+        c2NCap->SaveAs("images/timeh2NCap_test.png");
+	TCanvas *c3NCap = new TCanvas();
+        timeh3NCap->Draw();
+        c3NCap->SaveAs("images/timeh3NCap_test.png");
+	TCanvas *c4NCap = new TCanvas();
+        tcglobNCap->Draw();
+        c4NCap->SaveAs("images/tcglobNCap_test.png");
+	TCanvas *c5NCap = new TCanvas();
+        tcNCap->Draw();
+        c5NCap->SaveAs("images/tcNCap_test.png");
+
+	for(int i = 0; i<4; i++)
+	{
+		//TString print_name = Form("timeine%d",int_array[i]);
+		//std::cout << "\n" << print_name<< " Fit:" << std::endl;
+        	//harray[i]->Fit("fit","R");
+	
+		//hs->Add(harray[i]);
+		//timehstack->Add(harray[i]);
+
+		TCanvas *c = new TCanvas();
+        	harrayNCap[i]->Draw();
+        	TString filename = Form("images/timetile%dNCap_test.png",i);
+		c->SaveAs(filename);	
+	}
+
 
 	TCanvas *c6 = new TCanvas();
         posinex->Draw();
