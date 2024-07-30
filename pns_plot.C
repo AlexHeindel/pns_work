@@ -293,6 +293,15 @@ void pns_plot()
 	TH1F* toteine306=new TH1F("toteine306","total energy of hit",100,0.939,0.941);
 	TH1F* kineine306=new TH1F("kineine306","kinetic energy of incoming particle",100,0.,.000000001);
 
+	TH1F* posinexgamma=new TH1F("posinexgamma","position of hit",200,-100.,100.);
+	TH1F* posineygamma=new TH1F("posineygamma","position of hit",400,-200.,200.);
+	TH1F* posinezgamma=new TH1F("posinezgamma","position of hit",400,-200.,200.);
+	TH1F* mominexgamma=new TH1F("mominexgamma","x momentum of hit",100,-0.04,0.04);
+	TH1F* momineygamma=new TH1F("momineygamma","y momentum of hit",100,-0.04,0.04);
+	TH1F* mominezgamma=new TH1F("mominezgamma","z momentum of hit",100,-0.04,0.04);
+	TH1F* toteinegamma=new TH1F("toteinegamma","total energy of hit",100,0.,.01);
+	TH1F* kineinegamma=new TH1F("kineinegamma","kinetic energy of incoming particle",100,0.,.01);
+	
 	/*
         fhits->SetMakeClass(1);
         fheader->SetMakeClass(1);
@@ -446,6 +455,17 @@ void pns_plot()
 				toteine306->Fill(PIne[k][3]);
 				kineine306->Fill(PIne[k][4]);
                         }
+                	if(IdIne[k] == 22 && TypeIne[k] == 217 && PIne[k][4] > 0.008)
+			{
+				posinexgamma->Fill(PosIne[k][0]);
+				posineygamma->Fill(PosIne[k][1]);
+				posinezgamma->Fill(PosIne[k][2]);
+				mominexgamma->Fill(PIne[k][0]);
+				momineygamma->Fill(PIne[k][1]);
+				mominezgamma->Fill(PIne[k][2]);
+				toteinegamma->Fill(PIne[k][3]);
+				kineinegamma->Fill(PIne[k][4]);  
+			}
 	
 			posinex->Fill(PosIne[k][0]);
 			posiney->Fill(PosIne[k][1]);
@@ -497,22 +517,22 @@ void pns_plot()
 			{
                 		if (PheTile[iph] == 0 && Phe[iph]>0.5)
 				{
-					harray[0]->Fill(PheTime[iph]/1000.+offset2);
+					harray[0]->Fill(PheTime[iph]/1000.+offset1);
 				}
                         	if (PheTile[iph] == 1 && Phe[iph]>0.5)
 				{
-					harray[1]->Fill(PheTime[iph]/1000.+offset2);
+					harray[1]->Fill(PheTime[iph]/1000.+offset1);
 				}
                                 else if (PheTile[iph] == 2 && Phe[iph]>0.5)
 				{
                         		timeh3->Fill(PheTime[iph]/1000.+offset2);
                         		// 60 microseconds bunches
                         		timeh1->Fill(PheTime[iph]/1000.);
-					harray[2]->Fill(PheTime[iph]/1000.+offset2);
+					harray[2]->Fill(PheTime[iph]/1000.+offset1);
 				}
          	                else if (PheTile[iph] == 3 && Phe[iph]>0.5)
 				{
-					harray[3]->Fill(PheTime[iph]/1000.+offset2);
+					harray[3]->Fill(PheTime[iph]/1000.+offset1);
 				}
 	 			timeh2->Fill(PheTime[iph]/1000.+offset1);
 				for ( int j=0; j<115;  j++)
@@ -577,7 +597,7 @@ void pns_plot()
 	std::cout << "Total Neutron Capture Events: " << sum_306 << "  " << (float(sum_306)/total_neut_int) * 100 << " %"<< std::endl; 
 	std::cout << "Total Inelastic + Neutron Capture Events: " << multi_sum << "  " << (float(multi_sum)/total_neut_int) * 100 << " %"<< std::endl; 
 
-
+	/*
 
 	TF1 *func = new TF1("fit",fitf,100,800,3);	
 
@@ -619,6 +639,10 @@ void pns_plot()
         	harray[i]->Draw();
         	TString filename = Form("images/timetile%d_test.png",i);
 		c->SaveAs(filename);	
+		
+		TString tileout = Form("timetile%d",i);
+		std::cout << "\n" << tileout << " Fit:" << std::endl;
+        	harray[i]->Fit("fit","R");
 	}
 
 	TCanvas *c1NCap = new TCanvas();
@@ -652,7 +676,7 @@ void pns_plot()
 		c->SaveAs(filename);	
 	}
 
-
+	
 	TCanvas *c6 = new TCanvas();
         posinex->Draw();
         c6->SaveAs("images/posinex_test.png");
@@ -730,6 +754,31 @@ void pns_plot()
 	TCanvas *c29 = new TCanvas();
         kineine306->Draw();
         c29->SaveAs("images/kineine306_test.png");
+	*/
+	TCanvas *c30 = new TCanvas();
+        posinexgamma->Draw();
+        c30->SaveAs("images/posinexgamma_test.png");
+	TCanvas *c31 = new TCanvas();
+        posineygamma->Draw();
+        c31->SaveAs("images/posineygamma_test.png");
+	TCanvas *c32 = new TCanvas();
+        posinezgamma->Draw();
+        c32->SaveAs("images/posinezgamma_test.png");
+	TCanvas *c33 = new TCanvas();
+        mominexgamma->Draw();
+        c33->SaveAs("images/mominexgamma_test.png");
+	TCanvas *c34 = new TCanvas();
+        momineygamma->Draw();
+        c34->SaveAs("images/momineygamma_test.png");
+	TCanvas *c35 = new TCanvas();
+        mominezgamma->Draw();
+        c35->SaveAs("images/mominezgamma_test.png");
+	TCanvas *c36 = new TCanvas();
+        toteinegamma->Draw();
+        c36->SaveAs("images/toteinegamma_test.png");
+	TCanvas *c37 = new TCanvas();
+        kineinegamma->Draw();
+        c37->SaveAs("images/kineinegamma_test.png");
 }
 
 
