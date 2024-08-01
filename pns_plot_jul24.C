@@ -290,14 +290,14 @@ void pns_plot_jul24()
         }
 
 	TH1F* posinex=new TH1F("posinex","position of hit",200,-100.,100.);
-	TH1F* posiney=new TH1F("posiney","position of hit",400,-200.,200.);
-	TH1F* posinez=new TH1F("posinez","position of hit",400,-200.,200.);
+	TH1F* posiney=new TH1F("posiney","position of hit",400,-325.,250.);
+	TH1F* posinez=new TH1F("posinez","position of hit",400,-250.,250.);
 	TH1F* posinex303=new TH1F("posinex303","position of hit",200,-100.,100.);
-	TH1F* posiney303=new TH1F("posiney303","position of hit",400,-200.,200.);
-	TH1F* posinez303=new TH1F("posinez303","position of hit",400,-200.,200.);
+	TH1F* posiney303=new TH1F("posiney303","position of hit",400,-325.,250.);
+	TH1F* posinez303=new TH1F("posinez303","position of hit",400,-200.,250.);
 	TH1F* posinex306=new TH1F("posinex306","position of hit",200,-100.,100.);
-	TH1F* posiney306=new TH1F("posiney306","position of hit",400,-200.,200.);
-	TH1F* posinez306=new TH1F("posinez306","position of hit",400,-200.,200.);
+	TH1F* posiney306=new TH1F("posiney306","position of hit",400,-325.,250.);
+	TH1F* posinez306=new TH1F("posinez306","position of hit",400,-250.,250.);
 
 	TH1F* mominex=new TH1F("mominex","x momentum of hit",100,-0.04,0.04);
 	TH1F* mominey=new TH1F("mominey","y momentum of hit",100,-0.04,0.04);
@@ -308,16 +308,16 @@ void pns_plot_jul24()
 	TH1F* mominey303=new TH1F("mominey303","y momentum of hit",100,-0.08,0.08);
 	TH1F* mominez303=new TH1F("mominez303","z momentum of hit",100,-0.08,0.08);
 	TH1F* toteine303=new TH1F("toteine303","total energy of hit",100,0.94,0.944);
-	TH1F* kineine303=new TH1F("kineine303","kinetic energy of incoming particle",100,0.,.0015);
-	TH1F* mominex306=new TH1F("mominex306","x momentum of hit",100,-0.000000001,0.000000001);
-	TH1F* mominey306=new TH1F("mominey306","y momentum of hit",100,-0.000000001,0.000000001);
-	TH1F* mominez306=new TH1F("mominez306","z momentum of hit",100,-0.000000001,0.000000001);
+	TH1F* kineine303=new TH1F("kineine303","kinetic energy of incoming particle",100,0.,.005);
+	TH1F* mominex306=new TH1F("mominex306","x momentum of hit",100,-0.00025,0.00025);
+	TH1F* mominey306=new TH1F("mominey306","y momentum of hit",100,-0.00025,0.00025);
+	TH1F* mominez306=new TH1F("mominez306","z momentum of hit",100,-0.00025,0.00025);
 	TH1F* toteine306=new TH1F("toteine306","total energy of hit",100,0.939,0.941);
-	TH1F* kineine306=new TH1F("kineine306","kinetic energy of incoming particle",100,0.,.000000001);
+	TH1F* kineine306=new TH1F("kineine306","kinetic energy of incoming particle",100,0.,.0000003);
 
 	TH1F* posinexgamma=new TH1F("posinexgamma","position of hit",200,-100.,100.);
-	TH1F* posineygamma=new TH1F("posineygamma","position of hit",400,-200.,200.);
-	TH1F* posinezgamma=new TH1F("posinezgamma","position of hit",400,-200.,200.);
+	TH1F* posineygamma=new TH1F("posineygamma","position of hit",400,-325.,250.);
+	TH1F* posinezgamma=new TH1F("posinezgamma","position of hit",400,-250.,250.);
 	TH1F* mominexgamma=new TH1F("mominexgamma","x momentum of hit",100,-0.04,0.04);
 	TH1F* momineygamma=new TH1F("momineygamma","y momentum of hit",100,-0.04,0.04);
 	TH1F* mominezgamma=new TH1F("mominezgamma","z momentum of hit",100,-0.04,0.04);
