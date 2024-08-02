@@ -313,7 +313,7 @@ void pns_plot_jul24()
 	TH1F* mominey306=new TH1F("mominey306","y momentum of hit",100,-0.00025,0.00025);
 	TH1F* mominez306=new TH1F("mominez306","z momentum of hit",100,-0.00025,0.00025);
 	TH1F* toteine306=new TH1F("toteine306","total energy of hit",100,0.939,0.941);
-	TH1F* kineine306=new TH1F("kineine306","kinetic energy of incoming particle",100,0.,.0000003);
+	TH1F* kineine306=new TH1F("kineine306","kinetic energy of incoming particle",100,0.,.000000005);
 
 	TH1F* posinexgamma=new TH1F("posinexgamma","position of hit",200,-100.,100.);
 	TH1F* posineygamma=new TH1F("posineygamma","position of hit",400,-325.,250.);
@@ -633,18 +633,23 @@ void pns_plot_jul24()
 	//harray[1]->Fit("fit","R");
 
 	TCanvas *c1 = new TCanvas();
+	timeh1->GetXaxis()->SetTitle("\\mbox{Time} (\\mu s)");
         timeh1->Draw();
         c1->SaveAs("images_jul24/timeh1_test.png");
 	TCanvas *c2 = new TCanvas();
+	timeh2->GetXaxis()->SetTitle("\\mbox{Time} (\\mu s)");
         timeh2->Draw();
         c2->SaveAs("images_jul24/timeh2_test.png");
 	TCanvas *c3 = new TCanvas();
+	timeh3->GetXaxis()->SetTitle("\\mbox{Time} (\\mu s)");
         timeh3->Draw();
         c3->SaveAs("images_jul24/timeh3_test.png");
 	TCanvas *c4 = new TCanvas();
+	tcglob->GetXaxis()->SetTitle("\\mbox{Time} (\\mu s)");
         tcglob->Draw();
         c4->SaveAs("images_jul24/tcglob_test.png");
 	TCanvas *c5 = new TCanvas();
+	tc->GetXaxis()->SetTitle("\\mbox{Time} (\\mu s)");
         tc->Draw();
         c5->SaveAs("images_jul24/tc_test.png");
 
@@ -658,6 +663,7 @@ void pns_plot_jul24()
 		//timehstack->Add(harray[i]);
 
 		TCanvas *c = new TCanvas();
+		harray[i]->GetXaxis()->SetTitle("\\mbox{Time} (\\mu s)");
         	harray[i]->Draw();
         	TString filename = Form("images_jul24/timetile%d_test.png",i);
 		c->SaveAs(filename);	
@@ -668,18 +674,23 @@ void pns_plot_jul24()
 	}
 
 	TCanvas *c1NCap = new TCanvas();
+	timeh1NCap->GetXaxis()->SetTitle("\\mbox{Time} (\\mu s)");
         timeh1NCap->Draw();
         c1NCap->SaveAs("images_jul24/timeh1NCap_test.png");
 	TCanvas *c2NCap = new TCanvas();
+	timeh2NCap->GetXaxis()->SetTitle("\\mbox{Time} (\\mu s)");
         timeh2NCap->Draw();
         c2NCap->SaveAs("images_jul24/timeh2NCap_test.png");
 	TCanvas *c3NCap = new TCanvas();
+	timeh3NCap->GetXaxis()->SetTitle("\\mbox{Time} (\\mu s)");
         timeh3NCap->Draw();
         c3NCap->SaveAs("images_jul24/timeh3NCap_test.png");
 	TCanvas *c4NCap = new TCanvas();
+	tcglobNCap->GetXaxis()->SetTitle("\\mbox{Time} (\\mu s)");
         tcglobNCap->Draw();
         c4NCap->SaveAs("images_jul24/tcglobNCap_test.png");
 	TCanvas *c5NCap = new TCanvas();
+	tcNCap->GetXaxis()->SetTitle("\\mbox{Time} (\\mu s)");
         tcNCap->Draw();
         c5NCap->SaveAs("images_jul24/tcNCap_test.png");
 
@@ -693,6 +704,7 @@ void pns_plot_jul24()
 		//timehstack->Add(harray[i]);
 
 		TCanvas *c = new TCanvas();
+		harrayNCap[i]->GetXaxis()->SetTitle("\\mbox{Time} (\\mu s)");
         	harrayNCap[i]->Draw();
         	TString filename = Form("images_jul24/timetile%dNCap_test.png",i);
 		c->SaveAs(filename);	
@@ -700,105 +712,137 @@ void pns_plot_jul24()
 
 	
 	TCanvas *c6 = new TCanvas();
+	posinex->GetXaxis()->SetTitle("X Position (cm)");
         posinex->Draw();
         c6->SaveAs("images_jul24/posinex_test.png");
 	TCanvas *c7 = new TCanvas();
+	posiney->GetXaxis()->SetTitle("Y Position (cm)");
         posiney->Draw();
         c7->SaveAs("images_jul24/posiney_test.png");
 	TCanvas *c8 = new TCanvas();
+	posinez->GetXaxis()->SetTitle("Z Position (cm)");
         posinez->Draw();
         c8->SaveAs("images_jul24/posinez_test.png");
 	
 	TCanvas *c9 = new TCanvas();
+	posinex303->GetXaxis()->SetTitle("X Position (cm)");
         posinex303->Draw();
         c9->SaveAs("images_jul24/posinex303_test.png");
 	TCanvas *c10 = new TCanvas();
+	posiney303->GetXaxis()->SetTitle("Y Position (cm)");
         posiney303->Draw();
         c10->SaveAs("images_jul24/posiney303_test.png");
 	TCanvas *c11 = new TCanvas();
+	posinez303->GetXaxis()->SetTitle("Z Position (cm)");
         posinez303->Draw();
         c11->SaveAs("images_jul24/posinez303_test.png");
 
 	TCanvas *c12 = new TCanvas();
+	posinex306->GetXaxis()->SetTitle("X Position (cm)");
         posinex306->Draw();
         c12->SaveAs("images_jul24/posinex306_test.png");
 	TCanvas *c13 = new TCanvas();
+	posiney306->GetXaxis()->SetTitle("Y Position (cm)");
         posiney306->Draw();
         c13->SaveAs("images_jul24/posiney306_test.png");
 	TCanvas *c14 = new TCanvas();
+	posinez306->GetXaxis()->SetTitle("Z Position (cm)");
         posinez306->Draw();
         c14->SaveAs("images_jul24/posinez306_test.png");
 	
 	TCanvas *c15 = new TCanvas();
+	mominex->GetXaxis()->SetTitle("Momentum (GeV/c)");
         mominex->Draw();
         c15->SaveAs("images_jul24/mominex_test.png");
 	TCanvas *c16 = new TCanvas();
+	mominey->GetXaxis()->SetTitle("Momentum (GeV/c)");
         mominey->Draw();
         c16->SaveAs("images_jul24/mominey_test.png");
 	TCanvas *c17 = new TCanvas();
+	mominez->GetXaxis()->SetTitle("Momentum (GeV/c)");
         mominez->Draw();
         c17->SaveAs("images_jul24/mominez_test.png");
 	TCanvas *c18 = new TCanvas();
+	toteine->GetXaxis()->SetTitle("Energy (GeV)");
         toteine->Draw();
         c18->SaveAs("images_jul24/toteine_test.png");
 	TCanvas *c19 = new TCanvas();
+	kineine->GetXaxis()->SetTitle("Energy (GeV)");
         kineine->Draw();
         c19->SaveAs("images_jul24/kineine_test.png");
 	
 	TCanvas *c20 = new TCanvas();
+	mominex303->GetXaxis()->SetTitle("Momentum (GeV/c)");
         mominex303->Draw();
         c20->SaveAs("images_jul24/mominex303_test.png");
 	TCanvas *c21 = new TCanvas();
+	mominey303->GetXaxis()->SetTitle("Momentum (GeV/c)");
         mominey303->Draw();
         c21->SaveAs("images_jul24/mominey303_test.png");
 	TCanvas *c22 = new TCanvas();
+	mominez303->GetXaxis()->SetTitle("Momentum (GeV/c)");
         mominez303->Draw();
         c22->SaveAs("images_jul24/mominez303_test.png");
 	TCanvas *c23 = new TCanvas();
+	toteine303->GetXaxis()->SetTitle("Energy (GeV)");
         toteine303->Draw();
         c23->SaveAs("images_jul24/toteine303_test.png");
 	TCanvas *c24 = new TCanvas();
+	kineine303->GetXaxis()->SetTitle("Energy (GeV)");
         kineine303->Draw();
         c24->SaveAs("images_jul24/kineine303_test.png");
 	
 	TCanvas *c25 = new TCanvas();
+	mominex306->GetXaxis()->SetTitle("Momentum (GeV/c)");
         mominex306->Draw();
         c25->SaveAs("images_jul24/mominex306_test.png");
 	TCanvas *c26 = new TCanvas();
+	mominey306->GetXaxis()->SetTitle("Momentum (GeV/c)");
         mominey306->Draw();
         c26->SaveAs("images_jul24/mominey306_test.png");
 	TCanvas *c27 = new TCanvas();
+	mominez306->GetXaxis()->SetTitle("Momentum (GeV/c)");
         mominez306->Draw();
         c27->SaveAs("images_jul24/mominez306_test.png");
 	TCanvas *c28 = new TCanvas();
+	toteine306->GetXaxis()->SetTitle("Energy (GeV)");
         toteine306->Draw();
         c28->SaveAs("images_jul24/toteine306_test.png");
 	TCanvas *c29 = new TCanvas();
+	kineine306->GetXaxis()->SetTitle("Energy (GeV)");
         kineine306->Draw();
         c29->SaveAs("images_jul24/kineine306_test.png");
 	
 	TCanvas *c30 = new TCanvas();
+	posinexgamma->GetXaxis()->SetTitle("X Position (cm)");
         posinexgamma->Draw();
         c30->SaveAs("images_jul24/posinexgamma_test.png");
 	TCanvas *c31 = new TCanvas();
+	posineygamma->GetXaxis()->SetTitle("Y Position (cm)");
         posineygamma->Draw();
         c31->SaveAs("images_jul24/posineygamma_test.png");
 	TCanvas *c32 = new TCanvas();
+	posinezgamma->GetXaxis()->SetTitle("Z Position (cm)");
         posinezgamma->Draw();
         c32->SaveAs("images_jul24/posinezgamma_test.png");
 	TCanvas *c33 = new TCanvas();
+	mominexgamma->GetXaxis()->SetTitle("Momentum (GeV/c)");
         mominexgamma->Draw();
         c33->SaveAs("images_jul24/mominexgamma_test.png");
 	TCanvas *c34 = new TCanvas();
+	momineygamma->GetXaxis()->SetTitle("Momentum (GeV/c)");
         momineygamma->Draw();
         c34->SaveAs("images_jul24/momineygamma_test.png");
 	TCanvas *c35 = new TCanvas();
+	mominezgamma->GetXaxis()->SetTitle("Momentum (GeV/c)");
         mominezgamma->Draw();
         c35->SaveAs("images_jul24/mominezgamma_test.png");
 	TCanvas *c36 = new TCanvas();
+	toteinegamma->GetXaxis()->SetTitle("Energy (GeV)");
         toteinegamma->Draw();
         c36->SaveAs("images_jul24/toteinegamma_test.png");
 	TCanvas *c37 = new TCanvas();
+	kineinegamma->GetXaxis()->SetTitle("Energy (GeV)");
         kineinegamma->Draw();
         c37->SaveAs("images_jul24/kineinegamma_test.png");
 }
